@@ -30,27 +30,27 @@ def get_Hold():
     return cursor.fetchone()[0]
     
 def main():
-    print"Account Balance"
-    print ""
-    bankStatementBalance = Decimal(raw_input("Enter Bank Statement Balance: "))
-    print ""
-    print "Bank Statement Balance: " + str(bankStatementBalance)
+    print("Account Balance")
+    print ("")
+    bankStatementBalance = Decimal(input("Enter Bank Statement Balance: "))
+    print ("")
+    print("Bank Statement Balance: " + str(bankStatementBalance))
 
     withdrawal = round(Decimal(get_uncleared_credit()), 2)
     debit = round(Decimal(get_uncleared_debit()), 2)
-    print "Uncleared Withdrawal Transactions: " + str(withdrawal)
-    print "Uncleared Deposit Transactions: " + str(debit)
+    print("Uncleared Withdrawal Transactions: " + str(withdrawal))
+    print("Uncleared Deposit Transactions: " + str(debit))
 
     hold = round(Decimal(get_Hold()), 2)
-    print "Funds on HOLD: " + str(hold)
+    print("Funds on HOLD: " + str(hold))
 
     registryBalance = round(Decimal(get_available_funds()), 2)
-    print "Available funds: " + str(registryBalance)
+    print("Available funds: " + str(registryBalance))
     
     total = round((registryBalance + withdrawal + hold) - debit, 2)
-    print "Registry balance " + str(total)
+    print("Registry balance " + str(total))
 
-    print ""
+    print("")
     #print "bankStatementBalance ", bankStatementBalance, type(bankStatementBalance)
     # if total == bankStatementBalance:
     #     print "BALANCED"
