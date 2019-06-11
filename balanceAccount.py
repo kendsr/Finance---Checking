@@ -13,14 +13,23 @@ def get_uncleared_credit():
         select sum(withdrawal) from checking 
         where upper(status) != "X"
         ''') 
-    return cursor.fetchone()[0]
+    
+    withdrawal = cursor.fetchone()[0]
+    if withdrawal is None:
+        return 0
+    else:
+        return withdrawal
 
 def get_uncleared_debit():
     cursor.execute('''
         select sum(deposit) from checking 
         where upper(status) != "X"
         ''') 
-    return cursor.fetchone()[0]
+    debit = cursor.fetchone()[0]
+    if debit is None:
+        return 0
+    else:
+        return debit
 
 def get_Hold():
     cursor.execute('''
