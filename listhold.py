@@ -15,6 +15,14 @@ for row in C:
     out = '{}\t{}\t{}\t{}'.format(row[0], row[1], row[3], row[6])
     print(out)
 
+C.execute('''
+    select sum(withdrawal) from checking
+        where desc = "HOLD"
+        and withdrawal > 0
+    ''')
+for row in C:
+        print(f'Total {row[0]}')
+
 C.close()
 DB.close()
 
