@@ -16,10 +16,21 @@ for row in C:
     print(out)
 
 C.execute('''
+    select sum(withdrawal), category from checking
+        where desc = "HOLD"
+        and withdrawal > 0
+        group by category
+    ''')
+print("***************************************************************************")
+for row in C:
+        print(f'{row[1]}--{row[0]}')
+
+C.execute('''
     select sum(withdrawal) from checking
         where desc = "HOLD"
         and withdrawal > 0
     ''')
+print("***************************************************************************")
 for row in C:
         print(f'Total {row[0]}')
 
