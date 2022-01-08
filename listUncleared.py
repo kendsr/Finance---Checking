@@ -9,23 +9,29 @@ except NameError:
     # Python 3
     QString = str
 
+
 class Database:
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         self.data = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        self.data.setDatabaseName("../Data/Finance.sqlite")
+        self.data.setDatabaseName(
+            "C:\\Users\\kendsr\\Google Drive\\Finance.sqlite")
         self.data.open()
         if not self.data.open():
             QMessageBox.warning(None, "Finance",
-                QString("Database Error: %1").arg(self.db.lastError().text()))
+                                QString("Database Error: %1").arg(self.db.lastError().text()))
             sys.exit(1)
 
+
 class Model(QtSql.QSqlTableModel):
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(Model, self).__init__(parent)
         self.setEditStrategy(QtSql.QSqlTableModel.OnRowChange)
         self.setTable("checking")
-        self.setFilter("status != 'X' and status != 'x' and category != 'Escrow'") ## Transactions which have not cleared the bank
-        self.select()        
+        # Transactions which have not cleared the bank
+        self.setFilter(
+            "status != 'X' and status != 'x' and category != 'Escrow'")
+        self.select()
+
 
 class Main(QtWidgets.QWidget):
     def __init__(self):
@@ -38,6 +44,7 @@ class Main(QtWidgets.QWidget):
         self.ui.tableView.showColumn(1)
         self.ui.tableView.resizeColumnsToContents()
 
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = Main()
@@ -45,6 +52,7 @@ def main():
     window.setWindowTitle('Maygrove Finance System')
     window.show()
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()

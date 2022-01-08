@@ -1,6 +1,7 @@
 import sqlite3
 
-DB = sqlite3.connect("../Data/Finance.sqlite")
+DB = sqlite3.connect("C:\\Users\\kendsr\\Google Drive\\Finance.sqlite")
+
 C = DB.cursor()
 
 C.execute('''

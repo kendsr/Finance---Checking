@@ -9,33 +9,38 @@ except NameError:
     # Python 3
     QString = str
 
+
 class Database:
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         self.data = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        self.data.setDatabaseName("../Data/Finance.sqlite")
+        self.data.setDatabaseName(
+            "C:\\Users\\kendsr\\Google Drive\\Finance.sqlite")
         self.data.open()
         if not self.data.open():
             QMessageBox.warning(None, "Finance",
-                QString("Database Error: %1").arg(self.db.lastError().text()))
+                                QString("Database Error: %1").arg(self.db.lastError().text()))
             sys.exit(1)
+
 
 def get_available_funds():
     import sqlite3
-    db = sqlite3.connect("C:\\Users\\kendsr\\Desktop\\Production\\Finance\\Data\\Finance.sqlite")    
+    db = sqlite3.connect("C:\\Users\\kendsr\\Google Drive\\Finance.sqlite")
     cursor = db.cursor()
-    cursor.execute("select round(available,2) from available_funds")  
+    cursor.execute("select round(available,2) from available_funds")
     return str(cursor.fetchone()[0])
-    cursor.close()    
+    cursor.close()
     db.close()
 
+
 class Model(QtSql.QSqlTableModel):
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(Model, self).__init__(parent)
         self.setEditStrategy(QtSql.QSqlTableModel.OnRowChange)
         self.setTable("checking")
         if not self.select():
-            print(self.lastError().text()) 
+            print(self.lastError().text())
             print("Select not OK")
+
 
 class Main(QtWidgets.QWidget):
     def __init__(self):
@@ -50,6 +55,7 @@ class Main(QtWidgets.QWidget):
         self.available_funds = get_available_funds()
         self.ui.label_2.setText("Available Funds: " + self.available_funds)
 
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = Main()
@@ -57,6 +63,7 @@ def main():
     window.setWindowTitle('Maygrove Finance System')
     window.show()
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()

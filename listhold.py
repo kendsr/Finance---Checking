@@ -1,6 +1,6 @@
 import sqlite3
 
-DB = sqlite3.connect("../Data/Finance.sqlite")
+DB = sqlite3.connect("C:\\Users\\kendsr\\Google Drive\\Finance.sqlite")
 C = DB.cursor()
 C.execute('''
     select * from checking 
@@ -23,7 +23,7 @@ C.execute('''
     ''')
 print("***************************************************************************")
 for row in C:
-        print(f'{row[1]}--{row[0]}')
+    print(f'{row[1]}--{row[0]}')
 
 C.execute('''
     select sum(withdrawal) from checking
@@ -32,8 +32,7 @@ C.execute('''
     ''')
 print("***************************************************************************")
 for row in C:
-        print(f'Total {row[0]}')
+    print(f'Total {row[0]}')
 
 C.close()
 DB.close()
-
